@@ -1,0 +1,88 @@
+package assignmentc;
+
+
+
+
+class ValidationException extends Exception
+{
+ public ValidationException(String message) 
+ {
+     // call the constructor of Exception class
+
+     super(message);
+   }
+}
+
+//create a Phone class
+
+class Phone
+{
+ // create two string variables name, serialNumber
+
+ String name, serialNumber;
+
+ // create constructor -- initializes the name and serialNumber
+
+ public Phone(String nm, String snum)
+ {
+     name = nm;
+     serialNumber = snum;
+ }
+
+ // create validate() method and throwing ValidationException
+
+ public void validate()throws ValidationException
+ {  
+     // if name is empty then throw a ValidationException
+
+     if(name.isEmpty())  
+         throw new ValidationException("Name is null");
+
+     // if serialNumber is empty then throw a ValidationException
+
+     else if(serialNumber.isEmpty())
+         throw new ValidationException("Serial Number is null");
+
+     // if serialNumber is not exactly 16 characters then throw a ValidationException
+
+     else if(serialNumber.length()!=16)
+         throw new ValidationException("Serial Number is not 16 characters");
+
+     // otherwise, if name is not empty, serialNumber is not empty, 
+     // and serialNumber is exactly 16 characters then display message
+
+     else if(!name.isEmpty() && !serialNumber.isEmpty() && serialNumber.length()==16)
+         System.out.println("Phone Class constructed successfully");  
+}  
+}
+
+//create a class YourName_Q3
+
+public class AssignC
+{
+ // start main method
+
+ public static void main(String args[])
+ {  
+     // create an object obj1 of Phone class and assign values
+
+     Phone obj1 = new Phone("John","1234567895789654");
+
+     // try block
+
+     try
+     {  
+         // call the method using obj1
+
+         obj1.validate();                
+     }
+
+     // catch block
+
+     catch(ValidationException e)
+     {
+          System.out.println(e.getMessage());
+     }    
+
+   }  
+}

@@ -1,0 +1,22 @@
+package assignmentg;
+
+import java.util.Scanner;
+import java.util.NoSuchElementException;
+
+public class PhoneNumber {
+
+    public static void main(String[] args) throws Exception{
+        Scanner scanner = new Scanner(System.in);
+        PhoneTest app = new PhoneTest();
+
+        System.out.print("Enter phone number (digits greater than 1 only): ");
+
+        try {
+            app.writeIntoFile(scanner.nextInt();
+//            app.writeIntoFile(scanner.nextInt(), "sampleout.txt");
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Error inputting data.");
+        }
+    }
+}
+

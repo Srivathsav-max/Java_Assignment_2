@@ -1,0 +1,46 @@
+package assignmentb;
+
+public abstract class Employee implements Payable {
+    private final String firstName;
+    private final String lastName;
+    private final String socialSecurityNumber;
+
+    // Constructor
+    public Employee(String firstName, String lastName, String socialSecurityNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    // Return first name
+    public String getFirstName() {
+        return firstName;
+    }
+
+    // Return last name
+    public String getLastName() {
+        return lastName;
+    }
+
+    // Return social security number
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
+
+    // Return String representation of Employee object
+    @Override
+    public String toString() {
+        return String.format("%s %s%nSocial Security Number: %s",
+                getFirstName(), getLastName(), getSocialSecurityNumber());
+    }
+
+    // Abstract method that must be overridden by concrete subclasses
+    public abstract double earnings(); // No implementation here
+
+    // Implementing getPaymentAmount here enables the entire Employee class hierarchy to be used in an app that processes Payables
+    @Override
+    public double getPaymentAmount() {
+        return earnings();
+    }
+}
+
