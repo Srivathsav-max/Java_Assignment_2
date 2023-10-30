@@ -30,12 +30,22 @@ public class ContactsController {
 
     @FXML
     void addContactButtonPressed(ActionEvent event) {
-        Contact newContact = new Contact();
-        newContact.setFirstName(firstNameTextField.getText().trim());
-        newContact.setLastName(lastNameTextField.getText().trim());
-        newContact.setEmail(emailTextField.getText().trim());
-        newContact.setPhoneNumber(phoneNumberTextField.getText().trim());
-        contacts.add(newContact);
+        if (contactSelected != null) {
+            // If a contact is selected, clear the fields and allow for adding a new contact.
+            firstNameTextField.clear();
+            lastNameTextField.clear();
+            emailTextField.clear();
+            phoneNumberTextField.clear();
+            contactSelected = null;
+        } else {
+            // If no contact is selected, create and add a new contact.
+            Contact newContact = new Contact();
+            newContact.setFirstName(firstNameTextField.getText().trim());
+            newContact.setLastName(lastNameTextField.getText().trim());
+            newContact.setEmail(emailTextField.getText().trim());
+            newContact.setPhoneNumber(phoneNumberTextField.getText().trim());
+            contacts.add(newContact);
+        }
     }
 
     @FXML
@@ -61,11 +71,20 @@ public class ContactsController {
         contactsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Contact>() {
             @Override
             public void changed(ObservableValue<? extends Contact> arg0, Contact oldValue, Contact newValue) {
-                contactSelected = newValue;
-                firstNameTextField.setText(newValue.getFirstName());
-                lastNameTextField.setText(newValue.getLastName());
-                emailTextField.setText(newValue.getEmail());
-                phoneNumberTextField.setText(newValue.getPhoneNumber());
+                if (newValue != null) {
+                    contactSelected = newValue;
+                    firstNameTextField.setText(newValue.getFirstName());
+                    lastNameTextField.setText(newValue.getLastName());
+                    emailTextField.setText(newValue.getEmail());
+                    phoneNumberTextField.setText(newValue.getPhoneNumber());
+                } else {
+                    // If no contact is selected, clear the text fields.
+                    contactSelected = null;
+                    firstNameTextField.clear();
+                    lastNameTextField.clear();
+                    emailTextField.clear();
+                    phoneNumberTextField.clear();
+                }
             }
         });
     }
