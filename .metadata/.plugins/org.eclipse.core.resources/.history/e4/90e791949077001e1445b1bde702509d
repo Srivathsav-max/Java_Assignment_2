@@ -1,24 +1,20 @@
-package assignmenti;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 
 public class InvoiceApp extends JFrame {
     private DefaultTableModel tableModel;
     private JTable table;
     private JTextField partNumberField, partDescriptionField, quantityField, priceField;
     private JButton addButton, updateButton, deleteButton;
-    
-    
+    private JLabel selectedPartNumber, selectedPartDescription, selectedQuantity, selectedPrice, selectedInvoiceValue;
+
     private List<Invoice> invoiceList = new ArrayList<>();
-    
 
     public InvoiceApp() {
         setTitle("Java Assignment Question 1.i");
@@ -63,41 +59,22 @@ public class InvoiceApp extends JFrame {
         inputPanel.add(deleteButton);
         add(inputPanel, BorderLayout.SOUTH);
 
+        JPanel selectedValuesPanel = new JPanel();
+        selectedValuesPanel.setLayout(new GridLayout(1, 5));
+        selectedPartNumber = new JLabel("Selected Part Number: ");
+        selectedPartDescription = new JLabel("Selected Part Description: ");
+        selectedQuantity = new JLabel("Selected Quantity: ");
+        selectedPrice = new JLabel("Selected Price Per Item: ");
+        selectedInvoiceValue = new JLabel("Selected Invoice Value: ");
+        selectedValuesPanel.add(selectedPartNumber);
+        selectedValuesPanel.add(selectedPartDescription);
+        selectedValuesPanel.add(selectedQuantity);
+        selectedValuesPanel.add(selectedPrice);
+        selectedValuesPanel.add(selectedInvoiceValue);
+        add(selectedValuesPanel, BorderLayout.NORTH);
+
         pack();
         setLocationRelativeTo(null);
-        
-        
-
-        // Part A: Sort by partDescription
-        JButton sortPartDescriptionButton = new JButton("Sort by Part Description");
-        sortPartDescriptionButton.addActionListener(e -> sortAndDisplayByPartDescription());
-        inputPanel.add(sortPartDescriptionButton);
-
-        // Part B: Sort by pricePerItem
-        JButton sortPriceButton = new JButton("Sort by Price Per Item");
-        sortPriceButton.addActionListener(e -> sortAndDisplayByPricePerItem());
-        inputPanel.add(sortPriceButton);
-
-        // Part C: Sort by quantity
-        JButton sortQuantityButton = new JButton("Sort by Quantity");
-        sortQuantityButton.addActionListener(e -> sortAndDisplayByQuantity());
-        inputPanel.add(sortQuantityButton);
-
-        // Part D: Sort by Invoice value
-        JButton sortValueButton = new JButton("Sort by Invoice Value");
-        sortValueButton.addActionListener(e -> sortAndDisplayByValue());
-        inputPanel.add(sortValueButton);
-
-        // Part E: Invoices within the range $200 to $500
-        JButton invoicesInRangeButton = new JButton("Invoices in Range $200-$500");
-        invoicesInRangeButton.addActionListener(e -> displayInvoicesInRange());
-        inputPanel.add(invoicesInRangeButton);
-
-        // Part F: Find Invoice with 'Saw' in partDescription
-        JButton findSawButton = new JButton("Find Invoice with 'Saw'");
-        findSawButton.addActionListener(e -> findInvoiceWithSaw());
-        inputPanel.add(findSawButton);
-
         setVisible(true);
     }
 
@@ -110,7 +87,7 @@ public class InvoiceApp extends JFrame {
 
             Invoice invoice = new Invoice(partNumber, partDescription, quantity, pricePerItem);
             invoiceList.add(invoice);
-            tableModel.addRow(new Object[]{partNumber, partDescription, quantity, pricePerItem});
+            tableModel.addRow(new Object[]{partNumber, partDescription, quantity, pricePerItem, invoice.getPaymentAmount()});
 
             clearFields();
         } catch (NumberFormatException ex) {
@@ -134,6 +111,7 @@ public class InvoiceApp extends JFrame {
                 tableModel.setValueAt(partDescription, selectedRow, 1);
                 tableModel.setValueAt(quantity, selectedRow, 2);
                 tableModel.setValueAt(pricePerItem, selectedRow, 3);
+                tableModel.setValueAt(updatedInvoice.getPaymentAmount(), selectedRow, 4);
 
                 clearFields();
             } catch (NumberFormatException ex) {
@@ -160,72 +138,18 @@ public class InvoiceApp extends JFrame {
         partDescriptionField.setText("");
         quantityField.setText("");
         priceField.setText("");
+        clearSelectedValues();
     }
 
-    private void sortAndDisplayByPartDescription() {
-        List<Invoice> sortedList = invoiceList.stream()
-                .sorted(Comparator.comparing(Invoice::getPartDescription))
-                .collect(Collectors.toList());
-
-        displayInTable(sortedList);
-    }
-
-    private void sortAndDisplayByPricePerItem() {
-        List<Invoice> sortedList = invoiceList.stream()
-                .sorted(Comparator.comparingDouble(Invoice::getPricePerItem))
-                .collect(Collectors.toList());
-
-        displayInTable(sortedList);
-    }
-
-    private void sortAndDisplayByQuantity() {
-        List<Invoice> sortedList = invoiceList.stream()
-                .sorted(Comparator.comparingInt(Invoice::getQuantity))
-                .collect(Collectors.toList());
-
-        displayInTable(sortedList);
-    }
-
-    private void sortAndDisplayByValue() {
-        List<Invoice> sortedList = invoiceList.stream()
-                .sorted(Comparator.comparing(Invoice::getPaymentAmount))
-                .collect(Collectors.toList());
-
-        displayInTable(sortedList);
-    }
-
-    private void displayInvoicesInRange() {
-        List<Invoice> filteredList = invoiceList.stream()
-                .filter(invoice -> invoice.getPaymentAmount() >= 200 && invoice.getPaymentAmount() <= 500)
-                .collect(Collectors.toList());
-
-        displayInTable(filteredList);
-    }
-
-    private void findInvoiceWithSaw() {
-        Optional<Invoice> sawInvoice = invoiceList.stream()
-                .filter(invoice -> invoice.getPartDescription().toLowerCase().contains("saw"))
-                .findAny();
-
-        if (sawInvoice.isPresent()) {
-            int index = invoiceList.indexOf(sawInvoice.get());
-            table.setRowSelectionInterval(index, index);
-        } else {
-            JOptionPane.showMessageDialog(this, "No invoice with 'Saw' found.");
-        }
-    }
-
-    private void displayInTable(List<Invoice> invoices) {
-        tableModel.setRowCount(0); // Clear the table
-
-        for (Invoice invoice : invoices) {
-        	double invoiceValue = invoice.getPaymentAmount();
-            tableModel.addRow(new Object[]{invoice.getPartNumber(), invoice.getPartDescription(), invoice.getQuantity(), invoice.getPricePerItem(), invoiceValue});
-        }
+    private void clearSelectedValues() {
+        selectedPartNumber.setText("Selected Part Number: ");
+        selectedPartDescription.setText("Selected Part Description: ");
+        selectedQuantity.setText("Selected Quantity: ");
+        selectedPrice.setText("Selected Price Per Item: ");
+        selectedInvoiceValue.setText("Selected Invoice Value: ");
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new InvoiceApp());
     }
 }
-

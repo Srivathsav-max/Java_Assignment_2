@@ -34,9 +34,9 @@ public class PhoneNumberWordGenerator {
     }
 
     public static void main(String[] args) {
-        String phoneNumber = "7382273"; // Replace this with the desired phone number
+        String phoneNumber = "6392277"; // Replace this with the desired phone number
         generateWords(phoneNumber);
-        System.out.println("Words generated and saved to 'phone_words_TeamE.txt'.");
+        System.out.println("Words generated and saved to 'phone_words.txt'.");
     }
 }
 
