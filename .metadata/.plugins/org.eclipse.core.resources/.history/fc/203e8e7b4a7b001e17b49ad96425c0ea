@@ -48,12 +48,6 @@ class SalariedEmployee extends Employee {
     public double earnings() {
         return weeklySalary;
     }
-    
-    @Override
-    public String toString() {
-        return String.format("salaried employee:%s %s%nSocial Security Number: %s%nWeekly Salary: $%,.2f",
-            getFirstName(), getLastName(), getSocialSecurityNumber(), weeklySalary);
-    }
 }
 
 class HourlyEmployee extends Employee {

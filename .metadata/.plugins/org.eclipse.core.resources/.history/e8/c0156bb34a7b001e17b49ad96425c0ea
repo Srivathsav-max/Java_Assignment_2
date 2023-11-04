@@ -51,7 +51,7 @@ class SalariedEmployee extends Employee {
     
     @Override
     public String toString() {
-        return String.format("salaried employee:%s %s%nSocial Security Number: %s%nWeekly Salary: $%,.2f",
+        return String.format("salaried employee:%n%s %s%nSocial Security Number: %s%nWeekly Salary: $%,.2f",
             getFirstName(), getLastName(), getSocialSecurityNumber(), weeklySalary);
     }
 }

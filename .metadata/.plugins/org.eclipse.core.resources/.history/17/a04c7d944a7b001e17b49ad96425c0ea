@@ -4,11 +4,13 @@ public abstract class Employee implements Payable {
     private final String firstName;
     private final String lastName;
     private final String socialSecurityNumber;
+    private double weeklySalary;
 
-    public Employee(String firstName, String lastName, String socialSecurityNumber) {
+    public Employee(String firstName, String lastName, String socialSecurityNumber, double weeklySalary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.socialSecurityNumber = socialSecurityNumber;
+        this.weeklySalary = weeklySalary;
     }
 
     public String getFirstName() {
@@ -47,12 +49,6 @@ class SalariedEmployee extends Employee {
     @Override
     public double earnings() {
         return weeklySalary;
-    }
-    
-    @Override
-    public String toString() {
-        return String.format("salaried employee:%s %s%nSocial Security Number: %s%nWeekly Salary: $%,.2f",
-            getFirstName(), getLastName(), getSocialSecurityNumber(), weeklySalary);
     }
 }
 
