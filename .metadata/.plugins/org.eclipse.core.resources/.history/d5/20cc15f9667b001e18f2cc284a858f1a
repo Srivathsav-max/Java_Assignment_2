@@ -69,19 +69,6 @@ public class InvoiceApp extends JFrame {
         pack();
         setLocationRelativeTo(null);
         
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting() && table.getSelectedRow() >= 0) {
-                    int selectedRow = table.getSelectedRow();
-                    partNumberField.setText((String) tableModel.getValueAt(selectedRow, 0));
-                    partDescriptionField.setText((String) tableModel.getValueAt(selectedRow, 1));
-                    quantityField.setText(tableModel.getValueAt(selectedRow, 2).toString());
-                    priceField.setText(tableModel.getValueAt(selectedRow, 3).toString());
-                }
-            }
-        });
-
         
 
         // Part A: Sort by partDescription
