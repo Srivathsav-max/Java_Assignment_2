@@ -5,10 +5,10 @@ public class MazeSolver {
 	public boolean mazeTraversal(char[][] maze, int x, int y) {
 		maze[x][y] = 'x';
 
-		if (!isWall(maze, x + 1, y)) { // check to down
+		if (!isWall(maze, x + 1, y)) { 
 			maze[x + 1][y] = 'x';
 
-			if (x + 1 == 11) { // test if it is the exit
+			if (x + 1 == 11) { 
 				printMaze(maze);
 				return true;
 			}
@@ -17,10 +17,10 @@ public class MazeSolver {
 				return true;
 		}
 
-		if (!isWall(maze, x, y + 1)) { // check to the right
+		if (!isWall(maze, x, y + 1)) { 
 			maze[x][y + 1] = 'x';
 
-			if (y + 1 == 11) { // test if it is the exit
+			if (y + 1 == 11) { 
 				printMaze(maze);
 				return true;
 			}
@@ -29,10 +29,10 @@ public class MazeSolver {
 				return true;
 		}
 
-		if (!isWall(maze, x - 1, y)) { // check to up
+		if (!isWall(maze, x - 1, y)) { 
 			maze[x - 1][y] = 'x';
 
-			if (x - 1 == 0) { // test if it is the exit
+			if (x - 1 == 0) { 
 				printMaze(maze);
 				return true;
 			}
@@ -41,10 +41,10 @@ public class MazeSolver {
 				return true;
 		}
 
-		if (!isWall(maze, x, y - 1)) { // check to the left
+		if (!isWall(maze, x, y - 1)) { 
 			maze[x][y - 1] = 'x';
 
-			if (y - 1 == 0) { // test if it is the exit
+			if (y - 1 == 0) { 
 				printMaze(maze);
 				return true;
 			}

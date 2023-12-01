@@ -72,10 +72,8 @@ public class EmployeeDatabaseQueryApp extends Application {
                 StringBuilder result = new StringBuilder();
 
                 while (resultSet.next()) {
-                    // Assuming 'socialSecurityNumber' is the foreign key in other tables
                     String socialSecurityNumber = resultSet.getString("socialSecurityNumber");
 
-                    // Fetching 'firstName' and 'lastName' from the 'employees' table based on 'socialSecurityNumber'
                     String employeeName = getEmployeeNameBySocialSecurityNumber(socialSecurityNumber);
 
                     result.append("Employee Name: ").append(employeeName).append("\n");
@@ -106,8 +104,6 @@ public class EmployeeDatabaseQueryApp extends Application {
     }
 
     private String buildQuery(String selectedQuery) {
-        // Here you would implement logic to build the SQL query based on the selected option
-        // For simplicity, I'll provide a simple mapping for the predefined queries
 
         switch (selectedQuery) {
             case "Select all employees working in department SALES":
@@ -123,7 +119,6 @@ public class EmployeeDatabaseQueryApp extends Application {
 
     @Override
     public void stop() {
-        // Close the database connection when the application is closed
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
