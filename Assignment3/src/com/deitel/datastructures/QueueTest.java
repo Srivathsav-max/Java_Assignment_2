@@ -24,6 +24,7 @@ public class QueueTest {
             try {
                 int removedItem = queue.dequeue(); // remove head element
                 System.out.printf("%n%d dequeued%n", removedItem);
+                queue.print();
             } catch (NoSuchElementException noSuchElementException) {
                 continueLoop = false;
                 noSuchElementException.printStackTrace();
