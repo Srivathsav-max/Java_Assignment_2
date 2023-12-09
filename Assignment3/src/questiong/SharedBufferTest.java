@@ -11,8 +11,10 @@ public class SharedBufferTest {
         
         // create UnsynchronizedBuffer to store ints 
         Buffer sharedLocation = new UnsynchronizedBuffer();
-        System.out.println("Action\t\tValue\tSum of Produced\tSum of Consumed");
-        System.out.printf("------\t\t-----\t---------------\t---------------%n%n");
+        System.out.println(
+        		"Action\t\tValue\tSum of Produced\tSum of Consumed");
+        System.out.printf(
+        		"------\t\t-----\t---------------\t---------------%n%n");
         
         // execute the Producer and Consumer, giving each 
         // access to the sharedLocation

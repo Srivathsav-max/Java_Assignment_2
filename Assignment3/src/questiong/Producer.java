@@ -19,13 +19,11 @@ public class Producer implements Runnable {
             try {
                 // sleep 0 to 3 seconds, then place value in Buffer
                 Thread.sleep(generator.nextInt(3000)); // random sleep
-
-                // set value in buffer
-                sharedLocation.blockingPut(count);
+                sharedLocation.blockingPut(count);// set value in buffer
                 sum += count; // increment sum of values
                 System.out.printf("\t%2d%n", sum);
-            } catch (InterruptedException exception) {
-                // Preserve the interrupted status, and possibly log or handle the exception
+            } 
+            catch (InterruptedException exception) {
                 Thread.currentThread().interrupt();
             }
         }
