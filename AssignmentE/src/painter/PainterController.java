@@ -1,8 +1,13 @@
 package painter;
+import java.io.IOException;
+
 // Fig. 13.6: PainterController.java
 // Controller for the Painter app
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -10,6 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import painter.ColorChooserController;
 
 public class PainterController {
    // enum representing pen sizes

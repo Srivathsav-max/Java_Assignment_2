@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:controller="painter.ColorChooserController" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+    <GridPane hgap="10" vgap="10">
+        <Slider fx:id="redSlider" min="0" max="255" blockIncrement="1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <TextField fx:id="redTextField" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        
+        <Slider fx:id="greenSlider" min="0" max="255" blockIncrement="1" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <TextField fx:id="greenTextField" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        
+        <Slider fx:id="blueSlider" min="0" max="255" blockIncrement="1" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <TextField fx:id="blueTextField" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        
+        <Slider fx:id="alphaSlider" min="0" max="1" blockIncrement="0.01" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <TextField fx:id="alphaTextField" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+    </GridPane>
+    
+    <Rectangle fx:id="colorRectangle" width="100" height="100" fill="#000000"/>
+</VBox>
